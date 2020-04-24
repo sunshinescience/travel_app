@@ -1,5 +1,6 @@
 // Server side code
 
+
 // Setup empty JS object - to act as endpoint for all routes (i.e., this variable acts as the endpoint for all our app data)
 let projectData = {};
 
@@ -22,13 +23,15 @@ const cors = require('cors'); // Require Cors (which we've already installed on 
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website')); // We use our 'use' method and this time, we're pointing our app to the folder that we want it to look at
+app.use(express.static('dist')); // We use our 'use' method and this time, we're pointing our app to the folder that we want it to look at
 
 // **************** Setup Server ******************
 // Map URL's to functions
 const port = 3000; // We set our port
 
 const server = app.listen(port, listening); // Call the listen method and pass it our callback function
+
+console.log("hello travel");
 
 function listening() {
 	console.log(`server running on local host: ${port}`);
@@ -55,6 +58,4 @@ function addInfo (req, res) {
   projectData["date"] = data.date;
   projectData["userResponse"] = data.userResponse;
   console.log(projectData);
-  
 };
-
