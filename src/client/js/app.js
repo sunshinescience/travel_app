@@ -38,7 +38,8 @@ const postData = async (url = '', data = {}) => {
 postData('/add', {temperature: 85, date: '04-13-2020', userResponse: 'warm'});
 */
 
-document.getElementById('generate').addEventListener('click', performAction); // Added an event listener with a callback called performAction. So that when I click the generate button it will perform this action
+//What file do I put the below addEventListener in???
+//document.getElementById('generate').addEventListener('click', performAction); // Added an event listener with a callback called performAction. So that when I click the generate button it will perform this action
 
 function performAction(e){
     const zipValue =  document.getElementById('zip').value;
@@ -85,8 +86,4 @@ const updateUI = async () => {
   };
 
 // a list of exported variables
-export {postData, 
-    performAction, 
-    getWeather, 
-    updateUI
-}; 
+export { performAction, getWeather }; 

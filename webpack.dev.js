@@ -22,6 +22,9 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ] // Note: chained loaders run from right to left, so in this case, the sass-loader would be the first loader to run, and the css-loader would be the second, and the style loader would be the last
+                // 'style-loader' Creates `style` nodes from JS strings
+                // 'css-loader' Translates CSS into CommonJS
+                // 'sass-loader' Compiles Sass to CSS   
             }
         ]
     },
