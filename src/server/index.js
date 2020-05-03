@@ -25,6 +25,13 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('dist')); // We use our 'use' method and this time, we're pointing our app to the folder that we want it to look at
 
+console.log(__dirname);
+
+// Change the home route to use the index file from dist:
+app.get('/', function (req,res) {
+  res.sendFile('dist/index.html');
+});
+
 // **************** Setup Server ******************
 // Map URL's to functions
 const port = 8000; // We set our port
