@@ -28,7 +28,17 @@ module.exports = {
                 // 'style-loader' Creates `style` nodes from JS strings
                 // 'css-loader' Translates CSS into CommonJS
                 // 'sass-loader' Compiles Sass to CSS   
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader',
+                    ],
+            },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+            },
         ]
     },
     plugins: [
