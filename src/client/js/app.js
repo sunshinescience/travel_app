@@ -50,7 +50,7 @@ function performAction(e){
         console.log(data);
         // Add data to POST request
         // postData('/add', {temperature:data.temperature, date:data.date, userResponse:zipValue}); // Get zip
-        postData('/add', {temperature: data.main.temp, date:newDate, userResponse:feeling});
+        postData('http://localhost:8080/add', {temperature: data.main.temp, date:newDate, userResponse:feeling});
     
         updateUI();
     });
@@ -72,7 +72,7 @@ const getWeather = async (baseURL, zip, apiKey)=>{
 
 // Updating the UI of the app dynamically
 const updateUI = async () => {
-    const request = await fetch('/all');
+    const request = await fetch('http://localhost:8080/all');
     try{
       const allData = await request.json();
       //console.log(allData);
