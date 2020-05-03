@@ -1,6 +1,5 @@
 // Server side code
 
-
 // Setup empty JS object - to act as endpoint for all routes (i.e., this variable acts as the endpoint for all our app data)
 let projectData = {};
 
@@ -34,7 +33,7 @@ app.get('/', function (req,res) {
 
 // **************** Setup Server ******************
 // Map URL's to functions
-const port = 8000; // We set our port
+const port = 8080; // We set our port
 
 const server = app.listen(port, listening); // Call the listen method and pass it our callback function
 
