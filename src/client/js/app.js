@@ -84,4 +84,9 @@ const updateUI = async () => {
     }
   };
 
-  export {postData, performAction, getWeather, updateUI}; // a list of exported variables
+// a list of exported variables
+export {postData, 
+    performAction, 
+    getWeather, 
+    updateUI
+}; 

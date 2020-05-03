@@ -6,9 +6,13 @@ import { updateUI } from "./js/app.js"
 
 import './styles/main.scss'
 
-export { performAction }
-export { postData }
-export { getWeather }
-export { updateUI }
+export { performAction,
+    postData,
+    getWeather,
+    updateUI
+}
+
+
+alert("I'm running");
 
 

@@ -27,7 +27,7 @@ app.use(express.static('dist')); // We use our 'use' method and this time, we're
 
 // **************** Setup Server ******************
 // Map URL's to functions
-const port = 3000; // We set our port
+const port = 8000; // We set our port
 
 const server = app.listen(port, listening); // Call the listen method and pass it our callback function
 
