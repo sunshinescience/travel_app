@@ -60,8 +60,9 @@ app.post('/add', addInfo);
 
 function addInfo (req, res) { 
   let data = req.body;
-  projectData["temperature"] = data.temperature; // Adding a key/value pair to the projectData object using bracket notation
-  projectData["date"] = data.date;
-  projectData["userResponse"] = data.userResponse;
-  console.log(projectData);
+  console.log("data has been added: ", data);
+  projectData["country"] = data.country; // country    Adding a key/value pair to the projectData object using bracket notation
+  projectData["latitude"] = data.latitude; // latitude
+  projectData["longitude"] = data.longitude; // longitude
+  console.log("projectData object has been updated", projectData);
 };

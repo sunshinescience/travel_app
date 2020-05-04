@@ -2,6 +2,9 @@
 
 /* Global Variables */
 
+const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
+const userName = 'sunshine_17';
+
 // API key base URL for OpenWeatherMap API 
 const apiKey = '2f23248e356de460d785e1aa8fd8bbda';
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather'; // Note, that I found the API call here, which contains the base URL: https://openweathermap.org/current#zip
@@ -38,27 +41,55 @@ const postData = async (url = '', data = {}) => {
 postData('/add', {temperature: 85, date: '04-13-2020', userResponse: 'warm'});
 */
 
-//What file do I put the below addEventListener in???
-//document.getElementById('generate').addEventListener('click', performAction); // Added an event listener with a callback called performAction. So that when I click the generate button it will perform this action
+// There should be URLS and API Keys for at least 3 APIs, including Geonames, Weatherbit, and Pixabay
+// For geonames, the parameter 'username' needs to be passed with each request, instead of using an API ID and KEY for the geonames API
+// the parameters for the webservices have to be utf8 url encoded
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
+// Sample API request:
+/*
+http://api.geonames.org/postalCodeSearch?postalcode=9011&maxRows=10&username=demo
+
+//Here is another example:
+
+//Search by Postal Code (use your username instead of demo):
+
+http://api.geonames.org/postalCodeSearchJSON?placename=27513&username=demo
+
+Search by Location Name (use your username instead of demo):
+
+http://api.geonames.org/postalCodeSearchJSON?placename=raleigh&username=demo
+*/
 
 function performAction(e){
-    const zipValue =  document.getElementById('zip').value;
+    const city =  document.getElementById('zip').value;
     const feeling = document.getElementById('feelings').value;
-    getWeather(baseURL, zipValue, apiKey) // The action we want to do here is call this getWeather function
+    getName(geonamesURL, city, userName) // The action we want to do here is call this getWeather function
     // Chain another Promise that makes a POST request to store all the API data we received, as well as data entered by the user, locally in the app
     .then(function(data){ // Use the syntax 'then' to chain actions, with fetch calls
-        console.log(data);
+        
+        // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
+        console.log("User entered place name: ", data.postalCodes[0].placeName);
+
         // Add data to POST request
-        // postData('/add', {temperature:data.temperature, date:data.date, userResponse:zipValue}); // Get zip
-        postData('http://localhost:8080/add', {temperature: data.main.temp, date:newDate, userResponse:feeling});
-    
+        postData('http://localhost:8080/add', {
+            country: data.postalCodes[0].countryCode, // Country code
+            latitude: data.postalCodes[0].lat, // Latitude
+            longitude: data.postalCodes[0].lng // Longitude
+        });
         updateUI();
     });
 };
 
+// TODO: enter a city instead of zip code
+// What information needs to get adjusted so that instead of entering a zip code, you enter a city?
+// We want to get the latitude, longitude, country, instead of getting the temperature, feeling, and date
+
+// API example to get info for Raleigh:
+// http://api.geonames.org/postalCodeSearchJSON?placename=raleigh&username=sunshine_17
+
 // getWeather is an asynchronous function that uses fetch() to make a GET request to the OpenWeatherMap API. This function takes three parameters, which are the base URL, the zip code we want, and the API key
-const getWeather = async (baseURL, zip, apiKey)=>{
-    const res = await fetch(`${baseURL}?zip=${zip},us&appid=${apiKey}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that us zip codes are hard coded
+const getName = async (geonamesURL, city, userName)=>{
+    const res = await fetch(`${geonamesURL}placename=${city}&username=${userName}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that us zip codes are hard coded
     try {
         const data = await res.json();
         //console.log(data); // Printing the data in the console received from the OpenWeatherMap API, based on the zip code the user input
@@ -76,9 +107,9 @@ const updateUI = async () => {
     try{
       const allData = await request.json();
       //console.log(allData);
-      document.getElementById('temp').innerHTML = allData.temperature;
-      document.getElementById('date').innerHTML = allData.date;
-      document.getElementById('content').innerHTML = allData.userResponse;
+      document.getElementById('temp').innerHTML = allData.country; // country
+      document.getElementById('date').innerHTML = allData.latitude; // latitude
+      document.getElementById('content').innerHTML = allData.longitude; // longitude
   
     }catch(error){
       console.log("error", error);
@@ -86,4 +117,4 @@ const updateUI = async () => {
   };
 
 // a list of exported variables
-export { performAction, getWeather }; 
+export { performAction }; 
