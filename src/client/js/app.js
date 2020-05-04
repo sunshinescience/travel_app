@@ -10,10 +10,6 @@ const apiKey = '2f23248e356de460d785e1aa8fd8bbda';
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather'; // Note, that I found the API call here, which contains the base URL: https://openweathermap.org/current#zip
 const newZip =  document.getElementById('zip').value;
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let currentDate = d.getMonth()+'-'+ d.getDate()+'-'+ d.getFullYear();
-
 //TODO: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API. 
 // Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
 
@@ -83,6 +79,10 @@ const getName = async (geonamesURL, city, userName)=>{
     }
 };
 
+// Create a new date instance dynamically with JS
+let d = new Date(); // object
+let currentDate = d.getMonth()+'-'+ d.getDate()+'-'+ d.getFullYear(); // string
+
 // Function that updates dynamically with: City, Country is ___ days away
 document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
 function getDate() {
@@ -90,8 +90,33 @@ function getDate() {
     var dateEntered = new Date(input);
     console.log(input); //e.g. 2015-11-13
     console.log("Current date: ", currentDate);
-    const diff = Math.abs(dateEntered - currentDate);
-    console.log(typeof dateEntered);
+
+    const travelDate = dateEntered.getTime()
+    console.log("travel date: ", travelDate);
+
+    const todayDate = d.getTime();
+    console.log("today's date: ", todayDate);
+
+    const diff = Math.abs(travelDate - todayDate);
+    console.log("diff: ", diff)
+
+    
+    const oneDay = 1000*60*60*24; //Get 1 day in milliseconds
+    const daysAway = Math.round(diff/oneDay);
+    console.log("days until travel: ", daysAway);
+    
+    //const diff = Math.abs(dateEntered - currentDate);
+    console.log("dateEntered is of type: ", typeof dateEntered);
+    console.log("currentDate is of type: ", typeof currentDate);
+
+    /*
+    var parts = currentDate.split('-');
+    console.log("parts 0:", parts[0]);
+    console.log("parts 1:", parts[1]);
+    console.log("parts 2:", parts[2]);
+    var myDate = new Date(parts[0], parts[1], parts[2]); 
+    console.log("myDate", myDate);
+    */
     //console.log(dateEntered); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
 };
 
