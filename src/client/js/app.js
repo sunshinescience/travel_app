@@ -12,7 +12,7 @@ const newZip =  document.getElementById('zip').value;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let currentDate = d.getMonth()+'-'+ d.getDate()+'-'+ d.getFullYear();
 
 //TODO: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API. 
 // Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
@@ -45,30 +45,16 @@ postData('/add', {temperature: 85, date: '04-13-2020', userResponse: 'warm'});
 // For geonames, the parameter 'username' needs to be passed with each request, instead of using an API ID and KEY for the geonames API
 // the parameters for the webservices have to be utf8 url encoded
 // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
-// Sample API request:
-/*
-http://api.geonames.org/postalCodeSearch?postalcode=9011&maxRows=10&username=demo
 
-//Here is another example:
-
-//Search by Postal Code (use your username instead of demo):
-
-http://api.geonames.org/postalCodeSearchJSON?placename=27513&username=demo
-
-Search by Location Name (use your username instead of demo):
-
-http://api.geonames.org/postalCodeSearchJSON?placename=raleigh&username=demo
-*/
-
+// performAction is a function that uses the geonames API and gets a city from the user and shows on the page the country, latitude and longitude
 function performAction(e){
     const city =  document.getElementById('zip').value;
-    const feeling = document.getElementById('feelings').value;
     getName(geonamesURL, city, userName) // The action we want to do here is call this getWeather function
     // Chain another Promise that makes a POST request to store all the API data we received, as well as data entered by the user, locally in the app
     .then(function(data){ // Use the syntax 'then' to chain actions, with fetch calls
         
         // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
-        console.log("User entered place name: ", data.postalCodes[0].placeName);
+        console.log("The user entered place name is: ", data.postalCodes[0].placeName);
 
         // Add data to POST request
         postData('http://localhost:8080/add', {
@@ -79,10 +65,6 @@ function performAction(e){
         updateUI();
     });
 };
-
-// TODO: enter a city instead of zip code
-// What information needs to get adjusted so that instead of entering a zip code, you enter a city?
-// We want to get the latitude, longitude, country, instead of getting the temperature, feeling, and date
 
 // API example to get info for Raleigh:
 // http://api.geonames.org/postalCodeSearchJSON?placename=raleigh&username=sunshine_17
@@ -99,6 +81,18 @@ const getName = async (geonamesURL, city, userName)=>{
         console.log("error", error);
         // appropriately handle the error
     }
+};
+
+// Function that updates dynamically with: City, Country is ___ days away
+document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
+function getDate() {
+    var input = this.value;
+    var dateEntered = new Date(input);
+    console.log(input); //e.g. 2015-11-13
+    console.log("Current date: ", currentDate);
+    const diff = Math.abs(dateEntered - currentDate);
+    console.log(typeof dateEntered);
+    //console.log(dateEntered); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
 };
 
 // Updating the UI of the app dynamically
