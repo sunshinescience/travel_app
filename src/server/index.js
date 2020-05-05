@@ -64,7 +64,9 @@ function addInfo (req, res) {
   projectData["latitude"] = data.latitude; // latitude
   projectData["longitude"] = data.longitude; // longitude
 
-  projectData["daysUntilTravel"] = data.daysUntilTravel;
+  projectData["daysUntilTravel"] = data.daysUntilTravel || projectData.daysUntilTravel; // The postData call from getDate() in index.js doesn't send the key/value pair daysUntilTravel, so it will be undefined and rewrite the value sent before. Use the  Logical OR operator ( || ) to use the previous value if there is no daysUntilTravel key
+  //console.log("projectData.daysUntilTravel: ", projectData.daysUntilTravel);
+  //console.log("projectData longitude: : ", projectData.longitude);
 
   console.log("/add (2): projectData object has been updated with the data", projectData);
 };
