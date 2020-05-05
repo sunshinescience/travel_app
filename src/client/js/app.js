@@ -5,11 +5,6 @@
 const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
 const userName = 'sunshine_17';
 
-// API key base URL for OpenWeatherMap API 
-const apiKey = '2f23248e356de460d785e1aa8fd8bbda';
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather'; // Note, that I found the API call here, which contains the base URL: https://openweathermap.org/current#zip
-const newZip =  document.getElementById('zip').value;
-
 //TODO: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API. 
 // Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
 
@@ -24,9 +19,12 @@ const postData = async (url = '', data = {}) => {
     });
 
     try {
-        const newData = await response.json();
+        const newData = await response.json(); // waiting for the backend to tell you its done, and you get a response back which means it is done
         console.log(newData);
+        // call the callback function, updateUI()
+        //updateUI();
         return newData;
+
     } catch(error) {
         console.log('error', error);
     };
@@ -45,12 +43,12 @@ postData('/add', {temperature: 85, date: '04-13-2020', userResponse: 'warm'});
 // performAction is a function that uses the geonames API and gets a city from the user and shows on the page the country, latitude and longitude
 function performAction(e){
     const city =  document.getElementById('zip').value;
-    getName(geonamesURL, city, userName) // The action we want to do here is call this getWeather function
+    getName(geonamesURL, city, userName) // The action we want to do here is call this getName function
     // Chain another Promise that makes a POST request to store all the API data we received, as well as data entered by the user, locally in the app
     .then(function(data){ // Use the syntax 'then' to chain actions, with fetch calls
         
         // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
-        console.log("The user entered place name is: ", data.postalCodes[0].placeName);
+        console.log("performAction (1): User entered the place name of: ", data.postalCodes[0].placeName);
 
         // Add data to POST request
         postData('http://localhost:8080/add', {
@@ -58,7 +56,9 @@ function performAction(e){
             latitude: data.postalCodes[0].lat, // Latitude
             longitude: data.postalCodes[0].lng // Longitude
         });
-        updateUI();
+        console.log("performAction (2): postData() called - country, lat, long, data added to post response");
+        //updateUI(); // Note that this has to happen once ALL of the Promises have been resolved
+        //console.log("performAction (3): updateUI() called - the UI is being updated");
     });
 };
 
@@ -79,12 +79,11 @@ const getName = async (geonamesURL, city, userName)=>{
     }
 };
 
-// Create a new date instance dynamically with JS
-let d = new Date(); // object
-
 // Function that updates dynamically with: City, Country is ___ days away
 document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
 function getDate() {
+    // Create a new date instance dynamically with JS
+    let d = new Date(); // object       
     var input = this.value;
     var dateEntered = new Date(input); // Travel date entered by user
 
@@ -98,19 +97,31 @@ function getDate() {
     const daysAway = Math.round(diff/oneDay); // Get the (rounded) number of days away (Note, this may vary for different time zones)
     console.log("Number of days until travel: ", daysAway);
 
-    return daysAway
+    
+    postData('http://localhost:8080/add', {
+        daysUntilTravel: daysAway // Number of days until travel
+    });
+    console.log("getDate (1): postData called - days until travel added to the POST response")
+    //updateUI();
+    
 };
 
-// Updating the UI of the app dynamically
+// Add a callback to postData - and this will be the updateUI() function
+
+//console.log("get the date: ", getDate());
+
+// Updating the UI of the app dynamically - Note that  each Promise must be resolved successfully before we can update the UI (i.e., before we can call updateUI())
 const updateUI = async () => {
     const request = await fetch('http://localhost:8080/all');
     try{
       const allData = await request.json();
-      //console.log(allData);
+      console.log("/all (1): once the request finishes, then we get all of the data from the get function in index.js", allData);
       document.getElementById('temp').innerHTML = allData.country; // country
       document.getElementById('date').innerHTML = allData.latitude; // latitude
       document.getElementById('content').innerHTML = allData.longitude; // longitude
   
+      document.getElementById('daysUntil').innerHTML = allData.daysUntilTravel; // longitude
+      console.log("/all (2): Put the data that we want into the DOM");
     }catch(error){
       console.log("error", error);
     }

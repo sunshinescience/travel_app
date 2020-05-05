@@ -37,8 +37,6 @@ const port = 8080; // We set our port
 
 const server = app.listen(port, listening); // Call the listen method and pass it our callback function
 
-console.log("hello travel");
-
 function listening() {
 	console.log(`server running on local host: ${port}`);
 }
@@ -50,8 +48,9 @@ function listening() {
 // Respond with JS object when a GET request is made to the homepage 
 // Get route returns projectData
 // Note that the function is within the GET in the code below, but it could be placed separate 
-app.get('/all', function (req, res) { // Here, we use the get method on the instance of our app (called app above). Also, we created a new route named '/all' here, so that the route 'localhost:3000/all' will noww trigger the get request, which will return the JS object. req is the data provided by the GET request and res is the data returned to the GET request
+app.get('/all', function (req, res) { // Here, we use the get method on the instance of our app (called app above). Also, we created a new route named '/all' here, so that the route 'localhost:8080/all' will now trigger the get request, which will return the JS object. req is the data provided by the GET request and res is the data returned to the GET request
   res.send(projectData); // Using the get request to return the data (within projectData - once we post data into projectData), i.e., adding the line of code that will return the JS object when the GET request is made
+  console.log("/all (1): returning the data from the postData object");
 });
 
 
@@ -60,9 +59,12 @@ app.post('/add', addInfo);
 
 function addInfo (req, res) { 
   let data = req.body;
-  console.log("data has been added: ", data);
+  console.log("/add (1): called with POST: ", data);
   projectData["country"] = data.country; // country    Adding a key/value pair to the projectData object using bracket notation
   projectData["latitude"] = data.latitude; // latitude
   projectData["longitude"] = data.longitude; // longitude
-  console.log("projectData object has been updated", projectData);
+
+  projectData["daysUntilTravel"] = data.daysUntilTravel;
+
+  console.log("/add (2): projectData object has been updated with the data", projectData);
 };
