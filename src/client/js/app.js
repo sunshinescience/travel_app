@@ -12,7 +12,7 @@ const weatherBaseURL = ' https://api.weatherbit.io/v2.0/forecast/daily';
 // Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
 
 // Add a callback to postData - and this will be the updateUI() function
-const postData = async (url = '', data = {}) => { 
+const postData = async (url = '', data = {}, callback) => { 
     const response = await fetch(url, {
         method: 'POST', 
         credentials: 'same-origin',
@@ -26,7 +26,7 @@ const postData = async (url = '', data = {}) => {
         const newData = await response.json(); // waiting for the backend to tell you its done, and you get a response back which means it is done
         console.log(newData);
         // call the callback function, updateUI()
-        updateUI();
+        callback();
         return newData;
 
     } catch(error) {
@@ -56,10 +56,9 @@ function performAction(e){
             country: data.postalCodes[0].countryCode, // Country code
             latitude: data.postalCodes[0].lat, // Latitude
             longitude: data.postalCodes[0].lng // Longitude
-        });
+        }, updateUI()); // Note that the updateUI has to happen once ALL of the Promises have been resolved
         
         console.log("performAction (2): postData() called - country, lat, long, data added to post response");
-        updateUI(); // Note that this has to happen once ALL of the Promises have been resolved
         //console.log("performAction (3): updateUI() was called - the UI is being updated");
     });
 };
