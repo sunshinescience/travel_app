@@ -79,6 +79,7 @@ input{
     width: 320px;
     background: rgb(67,153,138);
     color: black;
+    opacity: 0.5;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
@@ -94,6 +95,12 @@ button{
     border: none;
     box-shadow: 2px 4px 5px #444;
 }
+
+button:hover{
+    background-color: rgb(104,114,130);
+    transition: ease 0.3s all;
+}
+
 h1{
     font-size: 36px;
 }

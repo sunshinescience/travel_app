@@ -5,8 +5,8 @@
 const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
 const userName = 'sunshine_17';
 
-const weatherbitAPI = 'f23dc283ea084df1b925c23df3eb2779';
-const weatherBaseURL = ' https://api.weatherbit.io/v2.0/forecast/daily';
+const weatherAPI = 'f23dc283ea084df1b925c23df3eb2779';
+const weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
 //TODO: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API. 
 // Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
@@ -56,7 +56,7 @@ function performAction(e){
             country: data.postalCodes[0].countryCode, // Country code
             latitude: data.postalCodes[0].lat, // Latitude
             longitude: data.postalCodes[0].lng // Longitude
-        }, updateUI()); // Note that the updateUI has to happen once ALL of the Promises have been resolved
+        }, updateUI()); // Note that this has to happen once ALL of the Promises have been resolved
         
         console.log("performAction (2): postData() called - country, lat, long, data added to post response");
         //console.log("performAction (3): updateUI() was called - the UI is being updated");
@@ -72,7 +72,7 @@ const getGeoname = async (geonamesURL, city, userName)=>{
     try {
         const data = await res.json();
         //console.log(data); // Printing the data in the console received from the API, based on the city the user input
-        console.log("getGeoname (1): obtained data from the API");
+        console.log("getGeoname (1): obtained data from the geonames API");
         return data;
     }  
     catch(error) {
@@ -107,33 +107,15 @@ function getDate() {
     });
     
     console.log("getDate (1): postData called - days until travel added to the POST response")
-    updateUI(); 
     */
 };
 
-// Getting weather forecast, see: https://www.weatherbit.io/api/weather-forecast-16-day
-// Example forecast request: https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=f23dc283ea084df1b925c23df3eb2779
-// Example with lat and longitude: https://api.weatherbit.io/v2.0/forecast/daily?&lat=38.123&lon=-78.543&key=f23dc283ea084df1b925c23df3eb2779
-
-/*
-function weatherPredict(weatherBaseURL, weatherAPI) {
-    getGeoname(geonamesURL, city, userName) // The action we want to do here is call this getName function
-    // Chain another Promise that makes a POST request to store all the API data we received, as well as data entered by the user, locally in the app
-    .then(function(data){
-        const lat = (data.postalCodes[0].lat).toPrecision(5); // latitude from the data, to 5 significant digits
-        const lon = (data.postalCodes[0].lng).toPrecision(5); // longitude from the data, to 5 significant digits
-        console.log("lat printed: ", lat);
-    });    
-};
-*/
-
-/*
-const getGeoname = async (lat, lon, weatherbitBaseURL, weatherbitAPI)=>{
-    const res = await fetch(`${geonamesURL}placename=${city}&username=${userName}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
+const weatherForecast = async (city, weatherBaseURL, weatherAPI)=>{
+    const res = await fetch(`${weatherBaseURL}city=${city}&key=${weatherAPI}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
     try {
         const data = await res.json();
-        //console.log(data); // Printing the data in the console received from the API, based on the city the user input
-
+        // console.log("The data is: ", data);
+        console.log("weatherForecast (1): obtained data from the weatherbit API");
         return data;
     }  
     catch(error) {
@@ -141,7 +123,16 @@ const getGeoname = async (lat, lon, weatherbitBaseURL, weatherbitAPI)=>{
         // appropriately handle the error
     }
 };
-*/
+// Testing the function weatherForecast: 
+weatherForecast("Raleigh", weatherBaseURL, weatherAPI);
+// To get high_temp from the data array (of the first object - just index into the object needed with data from 'daysAway' from getDate function above) - to do, figure out the 'days until travel' and use that as an index to get the information below. For example, the line below shows the next day (indexed as 0)
+// data["data"][0].high_temp
+// To get low_temp from the data array (of the first object) 
+// data["data"][0].low_temp
+// To do: get weather from the data array and within that, get description (of the first object, here it is zero):
+// data["data"][0].weather["description"]
+// To do: get the date of the above information, in order to index into it I need to get the 'daysAway' from getDate function above and use that in place of [0] in the above lines of code.
+
 
 // Updating the UI of the app dynamically - Note that  each Promise must be resolved successfully before we can update the UI (i.e., before we can call updateUI())
 const updateUI = async () => {
@@ -164,13 +155,16 @@ const updateUI = async () => {
 // a list of exported variables
 export { performAction }; 
 
+
+
+
+
+
 //  **************** To do: ********************
-// There should be URLS and API Keys for at least 3 APIs, including Geonames, Weatherbit, and Pixabay
-// For geonames, the parameter 'username' needs to be passed with each request, instead of using an API ID and KEY for the geonames API
-// the parameters for the webservices have to be utf8 url encoded
+// the parameters for the geonames webservices have to be utf8 url encoded
 // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
 
-// I think I need to make two other functions, weatherbit and pixabay, and make all of the functions Async and await ( or .then ) for each of them to finish executing before moving to next code execution
+// I think I need to make one function for each, geonames and weatherbit and pixabay, and make all of the functions Async and await ( or .then ) for each of them to finish executing before moving to next code execution
 // Perhaps I can call all three functions with a .then in the performAction function? And then after that use postData to post all of the data from all three
 // And then in the postData function, I call updateUI after the backend is done (e.g., you get a response) so that you can updateUI after you have all of the data
 
