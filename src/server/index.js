@@ -60,13 +60,12 @@ app.post('/add', addInfo);
 function addInfo (req, res) { 
   let data = req.body;
   console.log("/add (1): called with POST: ", data);
-  projectData["country"] = data.country; // country    Adding a key/value pair to the projectData object using bracket notation
+  projectData["city"] = data.city; // City
+  projectData["country"] = data.country; // Country    Adding a key/value pair to the projectData object using bracket notation
   projectData["latitude"] = data.latitude; // latitude
   projectData["longitude"] = data.longitude; // longitude
 
-  projectData["daysUntilTravel"] = data.daysUntilTravel || projectData.daysUntilTravel; // The postData call from getDate() in index.js doesn't send the key/value pair daysUntilTravel, so it will be undefined and rewrite the value sent before. Use the  Logical OR operator ( || ) to use the previous value if there is no daysUntilTravel key
-  //console.log("projectData.daysUntilTravel: ", projectData.daysUntilTravel);
-  //console.log("projectData longitude: : ", projectData.longitude);
+  //projectData["daysUntilTravel"] = data.daysUntilTravel || projectData.daysUntilTravel; // The postData call from getDate() in index.js doesn't send the key/value pair daysUntilTravel, so it will be undefined and rewrite the value sent before. Use the  Logical OR operator ( || ) to use the previous value if there is no daysUntilTravel key
 
-  console.log("/add (2): projectData object has been updated with the data", projectData);
+  console.log("/add (2): projectData object has been updated with the data");
 };
