@@ -126,7 +126,7 @@ const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
     const res = await fetch(`${pixaBaseURL}key=${pixaAPI}&q=${city}&image_type=photo&per_page=3`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
     try {
         const data = await res.json();
-        console.log("The pixabay data is: ", data);
+        console.log("The pixabay data is: ", data["hits"][0].pageURL);
         // console.log("weatherForecast (1): obtained data from the weatherbit API");
         // console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
         return data;
