@@ -1,15 +1,14 @@
 // Client side code
 
 /* Global Variables */
-
 const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
 const userName = 'sunshine_17';
 
 const weatherAPI = 'f23dc283ea084df1b925c23df3eb2779';
 const weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
-//TODO: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API. 
-// Make a POST request to our route (post the data) with two arguments: a url to make the POST to, and a JS object holding the data to post
+const pixaAPI = '16361458-dcb8c58ed9a7618589e0d8461';
+const pixaBaseURL = 'https://pixabay.com/api/?';
 
 // Add a callback to postData - and this will be the updateUI() function
 const postData = async (url = '', data = {}, callback) => { 
@@ -41,7 +40,6 @@ function performAction(e){
     // Perhaps try calling getDate() here? To postData all together???
     //console.log("getDate called within performAction: ", getDate());
     
-    
     getGeoname(geonamesURL, city, userName) // The action we want to do here is call this getGeoname function
     // Chain another Promise that makes a POST request to store all the API data we received, as well as data entered by the user, locally in the app
     .then(function(data){ // Use the syntax 'then' to chain actions, with fetch calls
@@ -63,9 +61,6 @@ function performAction(e){
     });
 };
 
-// API example to get info for Raleigh:
-// http://api.geonames.org/postalCodeSearchJSON?placename=raleigh&username=sunshine_17
-
 // getName is an asynchronous function that uses fetch() to make a GET request to the geonames API. This function takes three parameters, which are the base URL, the zip code we want, and the API key
 const getGeoname = async (geonamesURL, city, userName)=>{
     const res = await fetch(`${geonamesURL}placename=${city}&username=${userName}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that us zip codes are hard coded
@@ -81,8 +76,6 @@ const getGeoname = async (geonamesURL, city, userName)=>{
     }
 };
 
-// Perhaps just put other things in an object, and use the postData function once in performAction() and updateUI once there too after all data has been put into app endpoint???
-//daysAway = {};
 // Function that updates dynamically with: City, Country is ___ days away
 document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
 function getDate() {
@@ -115,7 +108,8 @@ const weatherForecast = async (city, weatherBaseURL, weatherAPI)=>{
     try {
         const data = await res.json();
         // console.log("The data is: ", data);
-        console.log("weatherForecast (1): obtained data from the weatherbit API");
+        // console.log("weatherForecast (1): obtained data from the weatherbit API");
+        // console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
         return data;
     }  
     catch(error) {
@@ -124,15 +118,26 @@ const weatherForecast = async (city, weatherBaseURL, weatherAPI)=>{
     }
 };
 // Testing the function weatherForecast: 
-weatherForecast("Raleigh", weatherBaseURL, weatherAPI);
-// To get high_temp from the data array (of the first object - just index into the object needed with data from 'daysAway' from getDate function above) - to do, figure out the 'days until travel' and use that as an index to get the information below. For example, the line below shows the next day (indexed as 0)
-// data["data"][0].high_temp
-// To get low_temp from the data array (of the first object) 
-// data["data"][0].low_temp
-// To do: get weather from the data array and within that, get description (of the first object, here it is zero):
-// data["data"][0].weather["description"]
-// To do: get the date of the above information, in order to index into it I need to get the 'daysAway' from getDate function above and use that in place of [0] in the above lines of code.
+// weatherForecast("Raleigh", weatherBaseURL, weatherAPI);
 
+
+
+const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
+    const res = await fetch(`${pixaBaseURL}key=${pixaAPI}&q=${city}&image_type=photo&per_page=3`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
+    try {
+        const data = await res.json();
+        console.log("The pixabay data is: ", data);
+        // console.log("weatherForecast (1): obtained data from the weatherbit API");
+        // console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
+        return data;
+    }  
+    catch(error) {
+        console.log("error", error);
+        // appropriately handle the error
+    }
+};
+// Testing the function getPixaImages: 
+getPixaImages("Raleigh", pixaBaseURL, pixaAPI)
 
 // Updating the UI of the app dynamically - Note that  each Promise must be resolved successfully before we can update the UI (i.e., before we can call updateUI())
 const updateUI = async () => {
