@@ -30,7 +30,7 @@ function performAction(e){
             // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
             let geoData = geoResponse.postalCodes[0];  // best match
             console.log("getGeoname then-0 (0): received best match geodata from api: ", geoData);
-            document.getElementById('city').innerHTML = geoData.placeName;
+            document.getElementById('city').innerHTML = "Your trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " away!"; // Inserting city and Country and days away into the DOM
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
             
@@ -147,7 +147,8 @@ const weatherForecast = async (city, weatherBaseURL, weatherAPI, days)=>{
         // console.log("The data is: ", data);
         // console.log("weatherForecast (1): obtained data from the weatherbit API");
         weatherPredictData["description"] = data["data"][days].weather["description"];
-        
+        weatherPredictData["high"] = data["data"][days].high_temp;
+        weatherPredictData["low"] = data["data"][days].low_temp;
         //console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
         return weatherPredictData;
     }  
