@@ -30,21 +30,22 @@ function performAction(e){
             // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
             let geoData = geoResponse.postalCodes[0];  // best match
             console.log("getGeoname then-0 (0): received best match geodata from api: ", geoData);
-            document.getElementById('city').innerHTML = "Your trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " away!"; // Inserting city and Country and days away into the DOM
+            document.getElementById('city').innerHTML = "Your trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " days away!"; // Inserting city and Country and days away into the DOM
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
             
             weatherForecast(city, weatherBaseURL, weatherAPI, daysUntilTravel)
             .then(function(weatherResponse){
                 console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse);
-                // update weather ui stuff
-                document.getElementById('weather').innerHTML = "Typical weather for then is:";
-                document.getElementById('weatherHighLow').innerHTML =  "High is " + weatherResponse.high + " and low is " + weatherResponse.low;
-                document.getElementById('weatherDescription').innerHTML =  weatherResponse.description;
-                    
-                // call pixabay, and in its then update pixa ui elements
-
+                // Updating weather UI
+                document.getElementById('weatherHighLow').innerHTML =  weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
             });
+
+            getPixaImages(city, pixaBaseURL, pixaAPI)  
+                // call pixabay, and in its then update pixa ui elements
+                .then(function(imgResponse){
+                    document.getElementById('image').src = imgResponse["hits"][0].webformatURL;
+                });
         }
         catch(error){
             console.log(error);
@@ -160,17 +161,15 @@ const weatherForecast = async (city, weatherBaseURL, weatherAPI, days)=>{
         // appropriately handle the error
     }
 };
-/*
+
 // Testing the function weatherForecast: 
 // weatherForecast("Raleigh", weatherBaseURL, weatherAPI);
 
 const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
-    const res = await fetch(`${pixaBaseURL}key=${pixaAPI}&q=${city}&image_type=photo`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
+    const res = await fetch(`${pixaBaseURL}key=${pixaAPI}&q=city+skyline+${city}&image_type=photo`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
     try {
         const imageData = await res.json();
         console.log("The pixabay data is: ", imageData["hits"][0].webformatURL);
-        // console.log("weatherForecast (1): obtained data from the weatherbit API");
-        // console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
         return imageData;
     }  
     catch(error) {
@@ -180,8 +179,9 @@ const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
     // document.getElementById('image').src = imageData["hits"][0].webformatURL;
 };
 // Testing the function getPixaImages: 
-getPixaImages("Raleigh", pixaBaseURL, pixaAPI)
-*/
+// getPixaImages("Raleigh", pixaBaseURL, pixaAPI)
+// Example API call:
+// https://pixabay.com/api/?key=16361458-dcb8c58ed9a7618589e0d8461&q=city+austin&image_type=photo
 
 // Updating the UI of the app dynamically - Note that  each Promise must be resolved successfully before we can update the UI (i.e., before we can call updateUI())
 const updateUI = async () => {
