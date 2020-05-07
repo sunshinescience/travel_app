@@ -7,14 +7,14 @@ body{
     display: grid;
     grid-auto-rows: minmax(150px, auto);
     /* grid-template-columns:  */
-    height:100vh;
+    height:110vh;
     //background: #f23557;
     background: #EDF2F1;
     color: rgb(93,50,14);
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .holder{
@@ -23,13 +23,16 @@ body{
 
 .entry{
     background: rgba(59, 74, 107, .4);
+    height:30vh;
 }
 
-#entryHolder{
 
-}
 
 #dateInput{
+
+}
+
+#dateReturn{
 
 }
 

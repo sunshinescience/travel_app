@@ -16,9 +16,11 @@ function performAction(e){
     console.log("performAction (0): entering");
     const city =  document.getElementById('zip').value;
     console.log("performAction (1): read zip:", city);
-    const input =  document.getElementById('dateInput').value; // Get date entered as a variable
+    const input =  document.getElementById('dateInput').value; // Get date leaving entered by user as a variable
+    const inputReturn =  document.getElementById('dateReturn').value; // Get date returning entered by user as a variable
     //console.log("Date entered by user is: ", input)
     const daysUntilTravel = getDate(input);
+    const tripLength = getTripLength(input, inputReturn);
 
     // Perhaps try calling getDate() here? To postData all together???
     //console.log("getDate called within performAction: ", getDate());
@@ -30,7 +32,7 @@ function performAction(e){
             // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
             let geoData = geoResponse.postalCodes[0];  // best match
             console.log("getGeoname then-0 (0): received best match geodata from api: ", geoData);
-            document.getElementById('city').innerHTML = "Your trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " days away!"; // Inserting city and Country and days away into the DOM
+            document.getElementById('city').innerHTML = "Your " + tripLength + " day trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " days away!"; // Inserting city and Country and days away into the DOM
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
             
@@ -39,6 +41,7 @@ function performAction(e){
                 console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse, "for", daysUntilTravel);
                 // Updating weather UI
                 try{
+                    document.getElementById('weather').innerHTML = "Typical weather for then is: ";
                     document.getElementById('weatherDescription').innerHTML =  weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
                 }
                 catch(error){
@@ -121,9 +124,6 @@ const postData = async (url = '', data = {}, callback) => {
 function getDate(input) {
     // Create a new date instance dynamically with JS
     let d = new Date(); // object       
-    //const input = this.value;
-    //const input = document.getElementById('dateInput').value;
-    //console.log("input: ", input);
     var dateEntered = new Date(input); // Travel date entered by user
 
     // Set each Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC
@@ -143,6 +143,18 @@ function getDate(input) {
     console.log("getDate (1): postData called - days until travel added to the POST response")
     */
    return daysAway;
+};
+
+// Function to help display length of trip
+function getTripLength(departureDate, returnDate) {
+    var dateEntered = new Date(departureDate); 
+    var dateReturn = new Date(returnDate); 
+    const dateLeaving = dateEntered.getTime();
+    const dateReturning = dateReturn.getTime();
+    const tripDiff = Math.abs(dateReturning  - dateLeaving); 
+    const oneDay = 1000*60*60*24; // Get 1 day in milliseconds
+    const tripLength = Math.round(tripDiff/oneDay);
+    return tripLength;
 };
 
 
@@ -211,16 +223,16 @@ const updateUI = async () => {
 export { performAction }; 
 
 
-
-
-
-
 //  **************** To do: ********************
-// the parameters for the geonames webservices have to be utf8 url encoded
-// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
 
-// I think I need to make one function for each, geonames and weatherbit and pixabay, and make all of the functions Async and await ( or .then ) for each of them to finish executing before moving to next code execution
-// Perhaps I can call all three functions with a .then in the performAction function? And then after that use postData to post all of the data from all three
+// Perhaps I can call all three functions with a .then in the performAction function? And then after that use postData to post all of the data from all three or can I just add them each to the DOM?
 // And then in the postData function, I call updateUI after the backend is done (e.g., you get a response) so that you can updateUI after you have all of the data
 
+// Add in service workers
+// One test for index.js and one test for app.js
+// Make it responsive - All features are usable across modern desktop, tablet, and phone browsers
+// At least one event listener should be imported.
+
+// At least one option from the Extend your Project/Ways to Stand Out sections have been added. Please add a Note to your reviewer which one you chose to implement, or add into your README
+// A README file is included detailing the app and all dependencies.
 // **********************************************
