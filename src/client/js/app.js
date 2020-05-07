@@ -16,6 +16,9 @@ function performAction(e){
     console.log("performAction (0): entering");
     const city =  document.getElementById('zip').value;
     console.log("performAction (1): read zip:", city);
+    const input =  document.getElementById('dateInput').value; // Get date entered as a variable
+    //console.log("Date entered by user is: ", input)
+    const daysUntilTravel = getDate(input);
 
     // Perhaps try calling getDate() here? To postData all together???
     //console.log("getDate called within performAction: ", getDate());
@@ -30,11 +33,12 @@ function performAction(e){
             document.getElementById('city').innerHTML = geoData.placeName;
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
-            weatherForecast(city, weatherBaseURL, weatherAPI)
+            
+            weatherForecast(city, weatherBaseURL, weatherAPI, daysUntilTravel)
             .then(function(weatherResponse){
                 console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse);
                 // update weather ui stuff
-
+                    
                 // call pixabay, and in its then update pixa ui elements
 
             });
@@ -104,11 +108,13 @@ const postData = async (url = '', data = {}, callback) => {
 
 
 // Function that updates dynamically with: City, Country is ___ days away
-document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
-function getDate() {
+//document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
+function getDate(input) {
     // Create a new date instance dynamically with JS
     let d = new Date(); // object       
-    var input = this.value;
+    //const input = this.value;
+    //const input = document.getElementById('dateInput').value;
+    //console.log("input: ", input);
     var dateEntered = new Date(input); // Travel date entered by user
 
     // Set each Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC
@@ -120,7 +126,6 @@ function getDate() {
     const oneDay = 1000*60*60*24; // Get 1 day in milliseconds
     const daysAway = Math.round(diff/oneDay); // Get the (rounded) number of days away (Note, this may vary for different time zones)
     console.log("Number of days until travel: ", daysAway);
-    
     /*
     postData('http://localhost:8080/add', {
         daysUntilTravel: daysAway // Number of days until travel
@@ -128,19 +133,23 @@ function getDate() {
     
     console.log("getDate (1): postData called - days until travel added to the POST response")
     */
+   return daysAway;
 };
 
 
-const weatherForecast = async (city, weatherBaseURL, weatherAPI)=>{
+const weatherForecast = async (city, weatherBaseURL, weatherAPI, days)=>{
     console.log("weatherForecast: fetching data");
     const res = await fetch(`${weatherBaseURL}city=${city}&key=${weatherAPI}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
     try {
         const data = await res.json();
         console.log("weatherForecast: received data");
+        const weatherPredictData = {};
         // console.log("The data is: ", data);
         // console.log("weatherForecast (1): obtained data from the weatherbit API");
-        // console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
-        return data;
+        weatherPredictData["description"] = data["data"][days].weather["description"];
+        
+        //console.log("The weather tommorow will be: ", data["data"][0].weather["description"]);
+        return weatherPredictData;
     }  
     catch(error) {
         console.log("error", error);
