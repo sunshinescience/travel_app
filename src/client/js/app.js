@@ -38,6 +38,9 @@ function performAction(e){
             .then(function(weatherResponse){
                 console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse);
                 // update weather ui stuff
+                document.getElementById('weather').innerHTML = "Typical weather for then is:";
+                document.getElementById('weatherHighLow').innerHTML =  "High is " + weatherResponse.high + " and low is " + weatherResponse.low;
+                document.getElementById('weatherDescription').innerHTML =  weatherResponse.description;
                     
                 // call pixabay, and in its then update pixa ui elements
 
