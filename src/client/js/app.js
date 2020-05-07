@@ -36,9 +36,14 @@ function performAction(e){
             
             weatherForecast(city, weatherBaseURL, weatherAPI, daysUntilTravel)
             .then(function(weatherResponse){
-                console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse);
+                console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse, "for", daysUntilTravel);
                 // Updating weather UI
-                document.getElementById('weatherHighLow').innerHTML =  weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                try{
+                    document.getElementById('weatherDescription').innerHTML =  weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                }
+                catch(error){
+                    console.log(error);
+                }
             });
 
             getPixaImages(city, pixaBaseURL, pixaAPI)  
