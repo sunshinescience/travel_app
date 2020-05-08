@@ -5,80 +5,70 @@ body{
 
 #app{
     display: grid;
-    grid-auto-rows: minmax(150px, auto);
+    grid-template-rows: auto auto auto auto;
     /* grid-template-columns:  */
-    grid-template-columns: 90%;
-    height:110vh;
+    grid-template-columns: 1fr;
+    // height:100vh;
     //background: #f23557;
     background: #EDF2F1;
     color: rgb(93,50,14);
     justify-content: center;
-    grid-gap: 1em;
+    //grid-gap: 1em;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
+    grid-template-areas: 
+   "hd"
+   "img"
+   "main"
+   "ft";
 }
 
 .holder{
-  
+    grid-area: main;
+    justify-content: center;
+    border: 2px solid black; 
+    padding: 10px;
 }
 
 .entry{
+    grid-area: ft;
     background: rgba(59, 74, 107, .4);
-    height:30vh;
-}
-
-
-
-#dateInput{
-
-}
-
-#dateReturn{
-
-}
-
-#city{
-
-}
-
-#country{
-
-}
-
-#weather{
-
-}
-
-#weatherDescription{
-
-}
-
-#image{
-
+    margin-bottom: 10px;
+    border: 2px solid green; 
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 .headline {
-    display: grid;
-    grid-auto-rows: minmax(25px, 25px);
+    grid-area: hd;
+    //display: grid;
+    //grid-auto-rows: minmax(25px);
     /* grid-template-columns:  */
-    grid-template-columns: 100%;
-    height:10vh;
+    //grid-template-columns: 100%;
+    height:75px;
     /* width: 80vh; */
     background: #00695c;
     justify-content: center;
     grid-gap: 1em;
     font-size: 30px;
-    padding-top: 10px;
-    margin-top: 10px;
+    //padding-top: 10px;
+    margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.title{
-
+    text-align: center;
+    //line-height: 5vh; // Aligning text vertically centered
+    border: 2px solid blue; 
 }
 
 #image{
-    
+    grid-area: img;
+    //display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 350px;
+    height: 200px;
+    border: 2px solid red; 
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
@@ -104,7 +94,7 @@ button{
     height: 60px;
     background: #3b4a6b;
     color: #f0d43a;
-    font-size: 26px;
+    font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
@@ -123,7 +113,7 @@ h1{
 textarea{
     background:#22b2da;
     color: black;
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Oswald', sans-serif;
 }
 
@@ -138,7 +128,6 @@ button:focus {
 ::placeholder { /* Firefox, Chrome, Opera */ 
     color: black; 
     font-family: 'Oswald', sans-serif;
-
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
@@ -157,4 +146,52 @@ button:focus {
     font-family: 'Edwardian Script ITC', 'Brush Script MT', 'Lucida Handwriting', 'Zapf Chancery', sans-serif;
     color: white;
     font-size: 40px;
+}
+
+@media(min-width:700px){
+    
+}
+
+@media(min-width:1024px){
+    #app{
+        display: grid;
+        grid-auto-rows: minmax(150px, auto);
+        /* grid-template-columns:  */
+        grid-template-columns: 45% 45%;
+        grid-template-areas: 
+        "hd hd"
+        "mainLeftUpper mainRightUpper"
+        "mainLeftLower mainRightLower"
+        "ft ft";
+        height:100vh;
+        //background: #f23557;
+        background: #EDF2F1;
+        color: rgb(93,50,14);
+        justify-content: center;
+        grid-gap: 1em;
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .box{
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+     .entry{
+        background: rgba(59, 74, 107, .4);
+        margin-bottom: 10px;
+        grid-area: mainRightLower;
+        height: 100%;
+        width: 100%;
+    }
+
+     #image{
+        grid-area: mainRightUpper;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        height: 50%;
+    }
 }

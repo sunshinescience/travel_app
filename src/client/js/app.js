@@ -118,9 +118,6 @@ const postData = async (url = '', data = {}, callback) => {
     };
 };
 
-
-// Function that updates dynamically with: City, Country is ___ days away
-//document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
 function getDate(input) {
     // Create a new date instance dynamically with JS
     let d = new Date(); // object       
@@ -224,9 +221,6 @@ export { performAction };
 
 
 //  **************** To do: ********************
-
-// Perhaps I can call all three functions with a .then in the performAction function? And then after that use postData to post all of the data from all three or can I just add them each to the DOM?
-// And then in the postData function, I call updateUI after the backend is done (e.g., you get a response) so that you can updateUI after you have all of the data
 
 // Add in service workers
 // One test for index.js and one test for app.js
