@@ -23,36 +23,19 @@ body{
    "ft";
 }
 
-.holder{
-    grid-area: main;
-    justify-content: center;
-    border: 2px solid black; 
-    padding: 10px;
-}
-
-.entry{
-    grid-area: ft;
-    background: rgba(59, 74, 107, .4);
-    margin-bottom: 10px;
-    border: 2px solid green; 
-    height: 100px;
-    margin-top: 10px;
-    padding: 10px;
-}
-
 .headline {
     grid-area: hd;
     //display: grid;
     //grid-auto-rows: minmax(25px);
     /* grid-template-columns:  */
     //grid-template-columns: 100%;
-    height:75px;
+    height:7vh;
     /* width: 80vh; */
     background: #00695c;
     justify-content: center;
     grid-gap: 1em;
     font-size: 30px;
-    //padding-top: 10px;
+    padding-top: 10px;
     margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
@@ -66,9 +49,27 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    width: 350px;
-    height: 200px;
+    width: 90%;
+    height: 25vh;
     border: 2px solid red; 
+}
+
+.holder{
+    grid-area: main;
+    justify-content: center;
+    border: 2px solid black; 
+    padding: 10px;
+    height: 42vh;
+}
+
+.entry{
+    grid-area: ft;
+    background: rgba(59, 74, 107, .4);
+    margin-bottom: 10px;
+    border: 2px solid green; 
+    height: 26vh;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
