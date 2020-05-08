@@ -5,7 +5,7 @@ body{
 
 #app{
     display: grid;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     /* grid-template-columns:  */
     grid-template-columns: 1fr;
     // height:100vh;
@@ -20,6 +20,7 @@ body{
    "hd"
    "img"
    "main"
+   "btn"
    "ft";
 }
 
@@ -59,7 +60,7 @@ body{
     justify-content: center;
     border: 2px solid black; 
     padding: 10px;
-    height: 42vh;
+    height: 27vh;
 }
 
 .entry{
@@ -67,7 +68,7 @@ body{
     background: rgba(59, 74, 107, .4);
     margin-bottom: 10px;
     border: 2px solid green; 
-    height: 26vh;
+    height: 20vh;
     margin-top: 10px;
     padding: 10px;
 }
@@ -80,17 +81,19 @@ label{
 
 input{
     display:block;
-    height: 60px;
+    height: 40px;
     width: 320px;
     background: rgb(67,153,138);
     color: black;
     opacity: 0.5;
-    font-size: 16px;
+    font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
+    padding-left: 10px;
 }
 
 button{
+    grid-area: btn;
     width: 200px;
     height: 60px;
     background: #3b4a6b;
@@ -100,6 +103,10 @@ button{
     border: none;
     box-shadow: 2px 4px 5px #444;
     border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 button:hover{
@@ -132,13 +139,13 @@ button:focus {
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #f0d43a; 
+    color: black; 
     font-family: 'Oswald', sans-serif;
 
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #f0d43a; 
+    color: black; 
     font-family: 'Oswald', sans-serif;
 
 } 
@@ -175,15 +182,15 @@ button:focus {
     }
 
     .box{
-        display: flex; 
+        //display: flex; 
         align-items: center; 
         justify-content: center; 
     }
 
      .entry{
+        grid-area: mainRightLower;
         background: rgba(59, 74, 107, .4);
         margin-bottom: 10px;
-        grid-area: mainRightLower;
         height: 100%;
         width: 100%;
     }
