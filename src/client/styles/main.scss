@@ -41,7 +41,6 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     //line-height: 5vh; // Aligning text vertically centered
-    border: 2px solid blue; 
 }
 
 #image{
@@ -52,44 +51,22 @@ body{
     margin-bottom: 10px;
     width: 90%;
     height: 25vh;
-    border: 2px solid red; 
 }
 
 .holder{
     grid-area: main;
     justify-content: center;
-    border: 2px solid black; 
     padding: 10px;
-    height: 27vh;
+    height: 30vh;
 }
 
 .entry{
     grid-area: ft;
     background: rgba(59, 74, 107, .4);
     margin-bottom: 10px;
-    border: 2px solid green; 
     height: 20vh;
     margin-top: 10px;
     padding: 10px;
-}
-
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-    display:block;
-    font-size: 24px;
-}
-
-input{
-    display:block;
-    height: 40px;
-    width: 320px;
-    background: rgb(67,153,138);
-    color: black;
-    opacity: 0.5;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-    padding-left: 10px;
 }
 
 button{
@@ -112,6 +89,25 @@ button{
 button:hover{
     background-color: rgb(104,114,130);
     transition: ease 0.3s all;
+}
+
+/*  Basic Styling To Override Default For Basic HTML Elements */
+label{
+    display:block;
+    font-size: 24px;
+}
+
+input{
+    display:block;
+    height: 40px;
+    width: 320px;
+    background: rgb(67,153,138);
+    color: black;
+    opacity: 0.5;
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    border: none;
+    padding-left: 10px;
 }
 
 h1{
@@ -157,49 +153,181 @@ button:focus {
 }
 
 @media(min-width:700px){
+    #app{
+        display: grid;
+        grid-template-rows: auto auto auto auto auto;
+        /* grid-template-columns:  */
+        grid-template-columns: 1fr;
+        // height:100vh;
+        //background: #f23557;
+        background: #EDF2F1;
+        color: rgb(93,50,14);
+        justify-content: center;
+        //grid-gap: 1em;
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        grid-template-areas: 
+       "hd"
+       "img"
+       "main"
+       "btn"
+       "ft";
+    }
     
+    .headline {
+        grid-area: hd;
+        //display: grid;
+        //grid-auto-rows: minmax(25px);
+        /* grid-template-columns:  */
+        //grid-template-columns: 100%;
+        height:7vh;
+        /* width: 80vh; */
+        background: #00695c;
+        justify-content: center;
+        grid-gap: 1em;
+        font-size: 30px;
+        padding-top: 10px;
+        margin: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        //line-height: 5vh; // Aligning text vertically centered
+    }
+    
+    #image{
+        grid-area: img;
+        //display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        width: 440px;
+        height: 240px;
+        border: 5px solid #3b4a6b; 
+    }
+    
+    .holder{
+        grid-area: main;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+        padding: 10px;
+        height: 27vh;
+    }
+    
+    .entry{
+        grid-area: ft;
+        background: rgba(59, 74, 107, .4);
+        margin-bottom: 10px;
+        height: 20vh;
+        margin-top: 10px;
+        padding: 10px;
+    }
+    
+    button{
+        grid-area: btn;
+        width: 200px;
+        height: 60px;
+        background: #3b4a6b;
+        color: #f0d43a;
+        font-size: 20px;
+        font-family: 'Oswald', sans-serif;
+        border: none;
+        box-shadow: 2px 4px 5px #444;
+        border-radius: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    } 
 }
 
 @media(min-width:1024px){
     #app{
         display: grid;
-        grid-auto-rows: minmax(150px, auto);
+        grid-template-rows: auto auto auto auto;
         /* grid-template-columns:  */
-        grid-template-columns: 45% 45%;
-        grid-template-areas: 
-        "hd hd"
-        "mainLeftUpper mainRightUpper"
-        "mainLeftLower mainRightLower"
-        "ft ft";
-        height:100vh;
+        grid-template-columns: 1fr 1fr;
+        // height:100vh;
         //background: #f23557;
         background: #EDF2F1;
         color: rgb(93,50,14);
         justify-content: center;
-        grid-gap: 1em;
+        //grid-gap: 1em;
         font-size: 20px;
         font-family: Arial, Helvetica, sans-serif;
+        grid-template-areas: 
+       "hd hd"
+       "main img"
+       "btn btn"
+       "ft ft";
     }
-
-    .box{
-        //display: flex; 
-        align-items: center; 
-        justify-content: center; 
+    
+    .headline {
+        grid-area: hd;
+        //display: grid;
+        //grid-auto-rows: minmax(25px);
+        /* grid-template-columns:  */
+        //grid-template-columns: 100%;
+        height:7vh;
+        /* width: 80vh; */
+        background: #00695c;
+        justify-content: center;
+        grid-gap: 1em;
+        font-size: 30px;
+        padding-top: 10px;
+        margin: 10px;
+        margin-bottom: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        //line-height: 5vh; // Aligning text vertically centered
     }
-
-     .entry{
-        grid-area: mainRightLower;
-        background: rgba(59, 74, 107, .4);
-        margin-bottom: 10px;
-        height: 100%;
-        width: 100%;
-    }
-
-     #image{
-        grid-area: mainRightUpper;
+    
+    #image{
+        grid-area: img;
+        //display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 70%;
-        height: 50%;
+        margin-bottom: 10px;
+        width: 540px;
+        height: 300px;
+        border: 5px solid #3b4a6b; 
+    }
+    
+    .holder{
+        grid-area: main;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px;
+        height: 27vh;
+        margin-left: 10px;
+        border: 5px solid #3b4a6b; 
+    }
+    
+    button{
+        grid-area: btn;
+        width: 200px;
+        height: 60px;
+        background: #3b4a6b;
+        color: #f0d43a;
+        font-size: 20px;
+        font-family: 'Oswald', sans-serif;
+        border: none;
+        box-shadow: 2px 4px 5px #444;
+        border-radius: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    } 
+
+    .entry{
+        grid-area: ft;
+        background: rgba(59, 74, 107, .4);
+        margin-bottom: 10px; 
+        height: 20vh;
+        margin-top: 10px;
+        padding: 10px;
+        margin-left: 200px;
+        margin-right: 200px;
     }
 }
