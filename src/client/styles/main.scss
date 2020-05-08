@@ -1,11 +1,11 @@
-body{
+html, body{
     background: #fffff8;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 #app{
     display: grid;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: 0.7fr 25vh 2fr 60px 2fr;
     /* grid-template-columns:  */
     grid-template-columns: 1fr;
     // height:100vh;
@@ -30,7 +30,7 @@ body{
     //grid-auto-rows: minmax(25px);
     /* grid-template-columns:  */
     //grid-template-columns: 100%;
-    height:7vh;
+    height:0.7fr;
     /* width: 80vh; */
     background: #00695c;
     justify-content: center;
@@ -57,16 +57,7 @@ body{
     grid-area: main;
     justify-content: center;
     padding: 10px;
-    height: 30vh;
-}
-
-.entry{
-    grid-area: ft;
-    background: rgba(59, 74, 107, .4);
-    margin-bottom: 10px;
-    height: 20vh;
-    margin-top: 10px;
-    padding: 10px;
+    height: 2fr;
 }
 
 button{
@@ -89,6 +80,15 @@ button{
 button:hover{
     background-color: rgb(104,114,130);
     transition: ease 0.3s all;
+}
+
+.entry{
+    grid-area: ft;
+    background: rgba(59, 74, 107, .4);
+    margin-bottom: 10px;
+    height: 2fr;
+    margin-top: 30px;
+    padding: 10px;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
@@ -155,7 +155,7 @@ button:focus {
 @media(min-width:700px){
     #app{
         display: grid;
-        grid-template-rows: auto auto auto auto auto;
+        grid-template-rows: 0.7fr 35vh 2fr 60px 2fr;
         /* grid-template-columns:  */
         grid-template-columns: 1fr;
         // height:100vh;
@@ -180,7 +180,7 @@ button:focus {
         //grid-auto-rows: minmax(25px);
         /* grid-template-columns:  */
         //grid-template-columns: 100%;
-        height:7vh;
+        height:0.7fr;
         /* width: 80vh; */
         background: #00695c;
         justify-content: center;
@@ -199,27 +199,17 @@ button:focus {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 10px;
-        width: 440px;
-        height: 240px;
-        border: 5px solid #3b4a6b; 
+        width: 90%;
+        height: 35vh;
     }
     
     .holder{
         grid-area: main;
-        margin-left: auto;
-        margin-right: auto;
         justify-content: center;
         padding: 10px;
-        height: 27vh;
-    }
-    
-    .entry{
-        grid-area: ft;
-        background: rgba(59, 74, 107, .4);
-        margin-bottom: 10px;
-        height: 20vh;
-        margin-top: 10px;
-        padding: 10px;
+        height: 2fr;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     button{
@@ -237,6 +227,20 @@ button:focus {
         margin-right: auto;
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+    
+    button:hover{
+        background-color: rgb(104,114,130);
+        transition: ease 0.3s all;
+    }
+    
+    .entry{
+        grid-area: ft;
+        background: rgba(59, 74, 107, .4);
+        margin-bottom: 10px;
+        height: 2fr;
+        margin-top: 30px;
+        padding: 10px;
     } 
 }
 
@@ -298,7 +302,7 @@ button:focus {
         flex-direction: column;
         justify-content: center;
         padding: 30px;
-        height: 27vh;
+        height: 300px;
         margin-left: 10px;
         border: 5px solid #3b4a6b; 
     }
