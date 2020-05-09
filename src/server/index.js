@@ -69,3 +69,5 @@ function addInfo (req, res) {
 
   console.log("/add (2): projectData object has been updated with the data");
 };
+
+exports.port = port;

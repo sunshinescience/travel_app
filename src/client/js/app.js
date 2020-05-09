@@ -224,10 +224,7 @@ export { performAction };
 
 // Add in service workers
 // One test for index.js and one test for app.js
-// Make it responsive - All features are usable across modern desktop, tablet, and phone browsers
-// At least one event listener should be imported.
 
-// Work on CSS and get the output in the proper place
 // Please add a Note to your reviewer which one you chose to implement, or add into your README
 // A README file is included detailing the app and all dependencies.
 // **********************************************
