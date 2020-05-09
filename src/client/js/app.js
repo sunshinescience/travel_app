@@ -222,7 +222,6 @@ export { performAction, getTripLength };
 //  **************** To do: ********************
 
 // Add in service workers
-// One test for index.js and one test for app.js
 
 // Please add a Note to your reviewer which one you chose to implement, or add into your README
 // A README file is included detailing the app and all dependencies.

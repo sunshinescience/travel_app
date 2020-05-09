@@ -30,13 +30,16 @@
   </div>
   </div>
   <script>
-    //window.addEventListener('load', (event) => {
-      //console.log('The page has fully loaded');
-    //});
     window.addEventListener('load', (event) => {
       document.getElementById('generate').addEventListener('click', () => Client.buttonHandler(event));
       });
-    
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+        });
+    }
   </script>
 </body>
 </html>
