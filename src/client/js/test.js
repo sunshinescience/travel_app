@@ -1,17 +1,12 @@
 import { getTripLength } from './app.js'
 
+import { buttonHandler } from './buttonHandler.js'
 
-test('This function should return a value', () => {
-    expect(getTripLength).toBeDefined();
+test('This is expected to be defined', () => {
+    expect(buttonHandler).toBeDefined();
 });
 
-
-/*
-function sum(a, b) {
-    return a + b;
-  };
-
-test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
+test('This function should return a value of type number', () => {
+    expect(typeof getTripLength()).toBe('number');
 });
-*/
+
