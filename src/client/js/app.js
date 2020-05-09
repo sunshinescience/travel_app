@@ -17,10 +17,10 @@ function performAction(e){
     const city =  document.getElementById('zip').value;
     console.log("performAction (1): read zip:", city);
     const input =  document.getElementById('dateInput').value; // Get date leaving entered by user as a variable
-    const inputReturn =  document.getElementById('dateReturn').value; // Get date returning entered by user as a variable
+    const inputReturn =  document.getElementById('dateReturn').value; // // Extend the project further: Add end date (i.e., et 'date returning' entered by user as a variable)
     //console.log("Date entered by user is: ", input)
     const daysUntilTravel = getDate(input);
-    const tripLength = getTripLength(input, inputReturn);
+    const tripLength = getTripLength(input, inputReturn); // Extend the project further: Display length of trip. 
 
     // Perhaps try calling getDate() here? To postData all together???
     //console.log("getDate called within performAction: ", getDate());
@@ -32,7 +32,7 @@ function performAction(e){
             // Getting the first object in the array postalCodes (from the geonames API as defined in the getName function fetch call)
             let geoData = geoResponse.postalCodes[0];  // best match
             console.log("getGeoname then-0 (0): received best match geodata from api: ", geoData);
-            document.getElementById('city').innerHTML = "Your " + tripLength + " day trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " days away!"; // Inserting city and Country and days away into the DOM
+            document.getElementById('city').innerHTML = "Your " + tripLength + " day trip to " + geoData.placeName + ", " + geoData.countryCode + " is " + daysUntilTravel + " days away!"; // // Extend the project further: Display length of trip - updating the UI. Also, inserting city and Country and days away.
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
             
@@ -141,6 +141,7 @@ function getDate(input) {
    return daysAway;
 };
 
+// Extend the project further: Add end date and display length of trip. 
 // Function to help display length of trip
 function getTripLength(departureDate, returnDate) {
     var dateEntered = new Date(departureDate); 
