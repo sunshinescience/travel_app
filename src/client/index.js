@@ -1,15 +1,13 @@
-import { performAction } from "./js/app"
+// Import the main function
+import { performAction, getTripLength } from "./js/app"
 
-
-//import an event listener in here, but where do I add this (what file)
+// Import the event listener 
 import { buttonHandler } from "./js/buttonHandler"
 
 import './styles/main.scss'
 
 export { 
     performAction, 
-    buttonHandler
+    buttonHandler, 
+    getTripLength
 }
-
-// alert("I'm running");
-

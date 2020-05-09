@@ -78,7 +78,7 @@ function performAction(e){
 };
 
 
-// getName is an asynchronous function that uses fetch() to make a GET request to the geonames API. This function takes three parameters, which are the base URL, the zip code we want, and the API key
+// getName is an asynchronous function that uses fetch() to make a GET request to the geonames API. This function takes three parameters, which are the base URL, the city we want, and the API key
 const getGeoname = async (geonamesURL, city, userName)=>{
     console.log("getGeoname (0): started, calling fetch");
     const res = await fetch(`${geonamesURL}placename=${city}&username=${userName}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that us zip codes are hard coded
@@ -90,7 +90,6 @@ const getGeoname = async (geonamesURL, city, userName)=>{
     }  
     catch(error) {
         console.log("error", error);
-        // appropriately handle the error
     }
 };
 
@@ -146,6 +145,7 @@ function getDate(input) {
 function getTripLength(departureDate, returnDate) {
     var dateEntered = new Date(departureDate); 
     var dateReturn = new Date(returnDate); 
+    console.log("data entered testing: ", dateEntered);
     const dateLeaving = dateEntered.getTime();
     const dateReturning = dateReturn.getTime();
     const tripDiff = Math.abs(dateReturning  - dateLeaving); 
@@ -153,7 +153,6 @@ function getTripLength(departureDate, returnDate) {
     const tripLength = Math.round(tripDiff/oneDay);
     return tripLength;
 };
-
 
 const weatherForecast = async (city, weatherBaseURL, weatherAPI, days)=>{
     console.log("weatherForecast: fetching data");
@@ -217,7 +216,7 @@ const updateUI = async () => {
   };
 
 // a list of exported variables
-export { performAction }; 
+export { performAction, getTripLength }; 
 
 
 //  **************** To do: ********************
