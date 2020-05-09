@@ -1,45 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Travel Planner</title>
-<link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
-<link rel="stylesheet/scss" type="text/css" href="../styles/main.scss">
-</head>
- <body>
-<div id = "app">
-  <div class ="headline" id = "fancyFont">
-    Travel planner
-  </div>
-  <!-- src is used to add the URL of the image -->
-  <img src="" id = "image">
-  <div class ="holder">
-    <label for="city">What is your travel destination?</label>
-    <input type="text" id="zip" placeholder="Enter City name here"><br>
-    <label for="feelings">What date are you leaving for your trip?</label>
-    <input class= "myInput" id="dateInput" placeholder="yyyy-mm-dd" rows="9" cols="50"><br>
-    <label for="feelings">What date do you get back from your trip?</label>
-    <input class= "myInput" id="dateReturn" placeholder="yyyy-mm-dd" rows="9" cols="50"><br>
-  </div>
-  <button id="generate" type = "submit"> Generate </button>
-  <div class ="entry">
-   <div id = "city"></div><br>
-   <div id = "weather"></div>
-   <div id = "weatherDescription"></div>
-  </div>
-  </div>
-  </div>
-  <script>
-    window.addEventListener('load', (event) => {
-      document.getElementById('generate').addEventListener('click', () => Client.buttonHandler(event));
-      });
-    // Check that service workers are supported
-    if ('serviceWorker' in navigator) {
-        // Use the window load event to keep the page load performant
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js');
+  <head>
+    <meta charset="UTF-8">
+    <title>Travel Planner</title>
+  </head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet/scss" type="text/css" href="../styles/main.scss">
+  <body>
+    <div id = "app">
+      <div class ="headline" id = "fancyFont">
+        Travel planner
+      </div>
+      <!-- src is used to add the URL of the image -->
+      <img src="" id = "image">
+      <div class ="holder">
+        <label for="city">What is your travel destination?</label>
+        <input type="text" id="zip" placeholder="Enter City name here"><br>
+        <label for="feelings">What date are you leaving for your trip?</label>
+        <input class= "myInput" id="dateInput" placeholder="yyyy-mm-dd" rows="9" cols="50"><br>
+        <label for="feelings">What date do you get back from your trip?</label>
+        <input class= "myInput" id="dateReturn" placeholder="yyyy-mm-dd" rows="9" cols="50"><br>
+      </div>
+      <button id="generate" type = "submit"> Generate </button>
+      <div class ="entry">
+        <div id = "city"></div><br>
+        <div id = "weather"></div>
+        <div id = "weatherDescription"></div>
+      </div>
+    </div>
+    <script>
+      window.addEventListener('load', (event) => {
+        document.getElementById('generate').addEventListener('click', () => Client.buttonHandler(event));
         });
-    }
-  </script>
-</body>
+      // Check that service workers are supported
+      if ('serviceWorker' in navigator) {
+          // Use the window load event to keep the page load performant
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/service-worker.js');
+          });
+      }
+    </script>
+  </body>
 </html>

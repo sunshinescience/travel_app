@@ -54,7 +54,6 @@ function performAction(e){
     });
 };
 
-
 // getName is an asynchronous function that uses fetch() to make a GET request to the geonames API. This function takes three parameters, which are the base URL, the city we want, and the API key
 const getGeoname = async (geonamesURL, city, userName)=>{
     console.log("getGeoname (0): started, calling fetch");
