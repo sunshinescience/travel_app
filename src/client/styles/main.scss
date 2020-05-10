@@ -6,7 +6,7 @@ html, body{
 
 #app{
     display: grid;
-    grid-template-rows: 0.7fr 25vh 2fr 60px 2fr;
+    grid-template-rows: 0.7fr 25vh 2fr 10vh 2fr;
     /* grid-template-columns:  */
     grid-template-columns: 1fr;
     // height:100vh;
@@ -32,7 +32,7 @@ html, body{
     /* grid-template-columns:  */
     //grid-template-columns: 100%;
     height:0.7fr;
-    /* width: 80vh; */
+    width: 90vw; 
     background: #00695c;
     justify-content: center;
     grid-gap: 1em;
@@ -92,12 +92,15 @@ button:hover{
     height: 2fr;
     margin-top: 1.5em;
     padding: 0.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
     display:block;
     font-size: 1.3em;
+    margin-left: 0.5em;
 }
 
 input{
@@ -111,6 +114,7 @@ input{
     font-family: 'Oswald', sans-serif;
     border: none;
     padding-left: 0.5em;
+    margin-left: 0.5em;
 }
 
 input:hover{
@@ -190,13 +194,16 @@ button:focus {
         /* grid-template-columns:  */
         //grid-template-columns: 100%;
         height:0.7fr;
-        /* width: 80vh; */
+        width: 90vw; 
         background: #00695c;
         justify-content: center;
         grid-gap: 1em;
         font-size: 1.5em;
         padding-top: 0.5em;
-        margin: 0.5em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
         //line-height: 5vh; // Aligning text vertically centered
@@ -249,6 +256,8 @@ button:focus {
         margin-bottom: 0.5em;
         height: 2fr;
         margin-top: 1.5em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
         padding: 0.5em;
     } 
 }
@@ -281,14 +290,15 @@ button:focus {
         /* grid-template-columns:  */
         //grid-template-columns: 100%;
         height:7vh;
-        /* width: 80vh; */
+        width: 90vw; 
         background: #00695c;
         justify-content: center;
         grid-gap: 1em;
         font-size: 1.5em;
         padding-top: 0.5em;
         margin: 0.5em;
-        margin-left: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
         //line-height: 5vh; // Aligning text vertically centered
@@ -299,8 +309,8 @@ button:focus {
         //display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 0.5em;
-        width: 90vw;
+        margin-top: 1em;
+        width: 40vw;
         height: 35vh;
         border: 5px solid #3b4a6b; 
     }
@@ -311,11 +321,38 @@ button:focus {
         flex-direction: column;
         justify-content: center;
         padding: 1.5em;
-        height: 300px;
-        margin-left: 0.5em;
+        height: 2fr;
+        margin-bottom: 1em;
+        width: 40vw;
         border: 5px solid #3b4a6b; 
+        margin-left: auto;
+        margin-right: auto;
     }
     
+    label{
+        grid-area: main;
+        //display:block;
+        font-size: 1.3em;
+        margin-left: 0.5em;
+        width: 38vw;
+    }
+    
+    input{
+        grid-area: main;
+        //display:block;
+        width: 70vw;
+        height: 5vh;
+        background: rgb(67,153,138);
+        color: black;
+        opacity: 0.7;
+        font-size: 1em;
+        font-family: 'Oswald', sans-serif;
+        border: none;
+        padding-left: 0.5em;
+        margin-left: 0.5em;
+        width: 38vw;
+    }
+
     button{
         grid-area: btn;
         width: 20vw;
@@ -340,7 +377,8 @@ button:focus {
         height: 20vh;
         margin-top: 0.5em;
         padding: 0.5em;
-        margin-left: 1em;
-        margin-right: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90vw;
     }
 }
