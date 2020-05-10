@@ -62,7 +62,7 @@ function addInfo (req, res) {
   projectData["country"] = data.country; // Country    Adding a key/value pair to the projectData object using bracket notation
   projectData["departure"] = data.departure; // latitude
   projectData["return"] = data.return; // latitude
-  projectData["weatherDescription"] = data.weatherDescription; // longitude
+  //projectData["weatherDescription"] = data.weatherDescription; // longitude
 
   console.log("/add - done, added:", projectData);
 };
