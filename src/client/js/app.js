@@ -35,7 +35,17 @@ function performAction(e){
                 // Updating weather UI
                 try{
                     document.getElementById('weather').innerHTML = "Typical weather for then is: ";
-                    document.getElementById('weatherDescription').innerHTML =  weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                    const weatherDescription = weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                    document.getElementById('weatherDescription').innerHTML =  weatherDescription;
+                
+                    const tripData = {
+                        city: geoData.placeName,
+                        country: geoData.countryCode,
+                        departure: input,
+                        return: inputReturn,
+                        weatherDescription: weatherDescription
+                    };
+                    postData("http://localhost:8080/add", tripData);
                 }
                 catch(error){
                     console.log(error);
@@ -43,7 +53,6 @@ function performAction(e){
             });
 
             getPixaImages(city, pixaBaseURL, pixaAPI)  
-                // call pixabay, and in the .then update pixabay UI elements
                 .then(function(imgResponse){
                     document.getElementById('image').src = imgResponse["hits"][0].webformatURL;
                 });
@@ -52,6 +61,7 @@ function performAction(e){
             console.log(error);
         }
     });
+    //console.log("trying print for postData function: ", weatherResponse.description);
 };
 
 // getName is an asynchronous function that uses fetch() to make a GET request to the geonames API. This function takes three parameters, which are the base URL, the city we want, and the API key
@@ -123,13 +133,34 @@ const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
     }
 };
 
+// Add a callback to postData - and this will be the updateUI() function
+const postData = async (url = '', data = {}) => { 
+    const response = await fetch(url, {
+        method: 'POST', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify(data), 
+    });
+
+    try {
+        const newData = await response.json(); // waiting for the backend to tell you its done, and you get a response back which means it is done
+        console.log(newData);
+        // call the callback function, updateUI()
+        //updateUI();
+        return newData;
+
+    } catch(error) {
+        console.log('error', error);
+    };
+};
+
 // a list of exported variables
 export { performAction, getTripLength }; 
 
 
 // ************ To do ***************
-
-// tip: replace the pixels with responsive units such as rem, em, %, and vh/vw
 
 // In server/index.js:  adding a post request, endpoint and some value pairs
 

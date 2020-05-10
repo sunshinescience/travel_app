@@ -1,5 +1,8 @@
 // Server side code
 
+// Setup empty JS object - to act as endpoint for all routes
+let projectData = {};
+
 // Require Express (which we've already installed on the command line) to run server and routes
 const express = require('express');
 
@@ -37,5 +40,31 @@ const server = app.listen(port, listening); // Call the listen method and pass i
 function listening() {
 	console.log(`server running on local host: ${port}`);
 }
+
+/*
+app.get('/all', function (req, res) { // Here, we use the get method on the instance of our app (called app above). Also, we created a new route named '/all' here, so that the route 'localhost:8080/all' will now trigger the get request, which will return the JS object. req is the data provided by the GET request and res is the data returned to the GET request
+  res.send(projectData); // Using the get request to return the data (within projectData - once we post data into projectData), i.e., adding the line of code that will return the JS object when the GET request is made
+  console.log("/all (1): returning the data from the postData object");
+});
+
+
+
+*/
+
+// POST method routes - adds data to projectData object
+app.post('/add', addInfo);
+
+function addInfo (req, res) { 
+  let data = req.body;
+  console.log("/add - called with data: ", data)
+
+  projectData["city"] = data.city; // City
+  projectData["country"] = data.country; // Country    Adding a key/value pair to the projectData object using bracket notation
+  projectData["departure"] = data.departure; // latitude
+  projectData["return"] = data.return; // latitude
+  projectData["weatherDescription"] = data.weatherDescription; // longitude
+
+  console.log("/add - done, added:", projectData);
+};
 
 exports.port = port;
