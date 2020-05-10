@@ -11,7 +11,7 @@ npm install
 To start the app, run the following command:
 npm run start 
 
-* By default, npm (Node Package Manager) install will install all modules listed as dependencies in package.json.
+By default, npm (Node Package Manager) install will install all modules listed as dependencies in package.json.
 
 #### Next, install packages
 Double check node is installed by checking the node version in the terminal:
@@ -84,7 +84,7 @@ Note that once everything else is done with the code, service workers can be set
 npm install workbox-webpack-plugin --save-dev
 
 ### API's
-Developer credentials were acquired from the from three websites in order to use their API's for the project. These API's were used:
+Developer credentials were acquired from the three websites in order to use their API's for the project. These API's were used:
 -  Geonames, see this [site](http://www.geonames.org/export/web-services.html)
 -  Pixabay, see this [site](https://pixabay.com/api/docs/)
 -  Weatherbit, see this [site](https://www.weatherbit.io/account/create)

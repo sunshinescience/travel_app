@@ -125,3 +125,17 @@ const getPixaImages = async (city, pixaBaseURL, pixaAPI)=>{
 
 // a list of exported variables
 export { performAction, getTripLength }; 
+
+
+// ************ To do ***************
+
+// tip: replace the pixels with responsive units such as rem, em, %, and vh/vw
+
+// In server/index.js:  adding a post request, endpoint and some value pairs
+
+// at least one event listener should be imported
+
+//there's an error in the Weatherbit API. The description property is undefined. 
+//But, the reviewer used a date input of more than a month away and forecast data is only 16 days at most in the future. Perhaps we're supposed to use historical data?
+
+
