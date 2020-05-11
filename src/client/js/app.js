@@ -38,7 +38,8 @@ function performAction(e){
                 // Updating weather UI
                 try{
                     document.getElementById('weather').innerHTML = "Typical weather for then is: ";
-                    const weatherDescription = weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                    //const weatherDescription = weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
+                    const weatherDescription = "cloudy";
                     document.getElementById('weatherDescription').innerHTML =  weatherDescription;
                 
                     const tripData = {
@@ -119,7 +120,8 @@ const weatherForecast = async (city, weatherBaseURL, weatherAPI, startDate, endD
     try {
         const data = await res.json();
         const weatherPredictData = {};
-        weatherPredictData["description"] = data.data.clouds;
+        weatherPredictData["description"] = typeof data.data[0];
+        //weatherPredictData["description"] = data.sources[0];
         weatherPredictData["high"] = data.data.max_temp;
         weatherPredictData["low"] = data.data.min_temp;
         return weatherPredictData;
