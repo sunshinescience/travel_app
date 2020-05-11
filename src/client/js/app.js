@@ -147,4 +147,4 @@ const postData = async (url = '', data = {}) => {
 };
 
 // a list of exported variables
-export { performAction, getTripLength }; 
+export { performAction, getTripLength, getDate }; 

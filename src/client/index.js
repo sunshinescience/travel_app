@@ -1,8 +1,8 @@
-// Import the main function
-import { performAction, getTripLength } from "./js/app"
+// Event listener
+document.getElementById('dateInput').addEventListener('click', getDate); // Listen for the click of the date input
 
-// Import an event listener 
-import { getTheDate, getDate } from "./js/getDate"
+// Import the main function
+import { performAction, getTripLength, getDate } from "./js/app"
 
 import { buttonHandler } from "./js/buttonHandler"
 
@@ -12,6 +12,5 @@ export {
     performAction, 
     buttonHandler, 
     getTripLength,
-    getTheDate,
     getDate
 }
