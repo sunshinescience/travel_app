@@ -148,11 +148,3 @@ const postData = async (url = '', data = {}) => {
 
 // a list of exported variables
 export { performAction, getTripLength }; 
-
-
-// ************ To do ***************
-
-//there's an error in the Weatherbit API. The description property is undefined. 
-//But, the reviewer used a date input of more than a month away and forecast data is only 16 days at most in the future. Perhaps we're supposed to use historical data?
-
-
