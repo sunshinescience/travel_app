@@ -1,11 +1,12 @@
 // Client side code
+import { getDate } from "./getDate"
 
 /* Global Variables */
 const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
 const userName = 'sunshine_17';
 
 const weatherAPI = 'f23dc283ea084df1b925c23df3eb2779';
-const weatherBaseURL = ' https://api.weatherbit.io/v2.0/history/daily?';
+const weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
 const pixaAPI = '16361458-dcb8c58ed9a7618589e0d8461';
 const pixaBaseURL = 'https://pixabay.com/api/?';
@@ -15,9 +16,6 @@ const pixaBaseURL = 'https://pixabay.com/api/?';
 function performAction(e){
     const city =  document.getElementById('zip').value;
     const input =  document.getElementById('dateInput').value; // Get date leaving entered by user as a variable
-    const secondDaySplit = input.split("-");
-    const secondDay =  secondDaySplit[0] + "-" + secondDaySplit[1] + "-" + (Number(secondDaySplit[2]) + 1).toString();
-    
     const inputReturn =  document.getElementById('dateReturn').value; // // Extend the project further: Add end date (i.e., et 'date returning' entered by user as a variable)
     const daysUntilTravel = getDate(input);
     const tripLength = getTripLength(input, inputReturn); // Extend the project further: Display length of trip. 
@@ -32,14 +30,14 @@ function performAction(e){
 
             console.log("getGeoname then-0 (1): kicking off weather forecast", city);
             
-            weatherForecast(city, weatherBaseURL, weatherAPI, input, secondDay)
+            weatherForecast(city, weatherBaseURL, weatherAPI, daysUntilTravel)
             .then(function(weatherResponse){
                 console.log("weatherForecast then-0 (0): received weather forecast", weatherResponse, "for", daysUntilTravel);
                 // Updating weather UI
                 try{
-                    document.getElementById('weather').innerHTML = "Typical weather for then is: ";
-                    //const weatherDescription = weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
-                    const weatherDescription = "cloudy";
+                const input =  document.getElementById('dateInput').value; // Get date leaving entered by user as a variable
+                    document.getElementById('weather').innerHTML = "The weather forecast for " + input + " in " + city + " is: ";
+                    const weatherDescription = weatherResponse.description + ", with a high of " + weatherResponse.high + " and a low of " + weatherResponse.low;
                     document.getElementById('weatherDescription').innerHTML =  weatherDescription;
                 
                     const tripData = {
@@ -81,23 +79,6 @@ const getGeoname = async (geonamesURL, city, userName)=>{
     }
 };
 
-const getTheDate = document.getElementById('dateInput').addEventListener('change', getDate); // Listen for the change of the date input
-function getDate(input) {
-    // Create a new date instance dynamically with JS
-    let d = new Date(); // object       
-    var dateEntered = new Date(input); // Travel date entered by user
-
-    // Set each Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC
-    const travelDate = dateEntered.getTime() // Travel date in milliseconds
-    const todayDate = d.getTime(); // Current date in milliseconds
-
-    const diff = Math.abs(travelDate - todayDate); // Get the difference between the date of travel and the current date
-  
-    const oneDay = 1000*60*60*24; // Get 1 day in milliseconds
-    const daysAway = Math.round(diff/oneDay); // Get the (rounded) number of days away (Note, this may vary for different time zones)
-   return daysAway;
-};
-
 // Extend the project further: Add end date and display length of trip. 
 // Function to help display length of trip
 function getTripLength(departureDate, returnDate) {
@@ -115,15 +96,14 @@ function getTripLength(departureDate, returnDate) {
 
 // https://api.weatherbit.io/v2.0/history/daily?city=Houston&country=US&start_date=2020-05-06&end_date=2020-05-07&key=f23dc283ea084df1b925c23df3eb2779
 // weatherForecast(city, weatherBaseURL, weatherAPI, startDate, endDate)
-const weatherForecast = async (city, weatherBaseURL, weatherAPI, startDate, endDate)=>{
-    const res = await fetch(`${weatherBaseURL}city=${city}&start_date=${startDate}&end_date=${endDate}&key=${weatherAPI}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
+const weatherForecast = async (city, weatherBaseURL, weatherAPI, days)=>{
+    const res = await fetch(`${weatherBaseURL}city=${city}&key=${weatherAPI}`); // We set a variable to hold the fetch calls. And the await keyword is telling it not to go on to the next part until it has received the data it needs. This URL in the fetch is what will let us query the OpenWeatherMap API. I set it so that US zip codes are hard coded
     try {
         const data = await res.json();
         const weatherPredictData = {};
-        weatherPredictData["description"] = typeof data.data[0];
-        //weatherPredictData["description"] = data.sources[0];
-        weatherPredictData["high"] = data.data.max_temp;
-        weatherPredictData["low"] = data.data.min_temp;
+        weatherPredictData["description"] = data["data"][days].weather["description"];
+        weatherPredictData["high"] = data["data"][days].high_temp;
+        weatherPredictData["low"] = data["data"][days].low_temp;
         return weatherPredictData;
     }  
     catch(error) {
@@ -167,7 +147,7 @@ const postData = async (url = '', data = {}) => {
 };
 
 // a list of exported variables
-export { performAction, getTripLength, getTheDate }; 
+export { performAction, getTripLength }; 
 
 
 // ************ To do ***************

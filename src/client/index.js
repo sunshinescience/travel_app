@@ -1,7 +1,9 @@
 // Import the main function
-import { performAction, getTripLength, getTheDate } from "./js/app"
+import { performAction, getTripLength } from "./js/app"
 
-// Import the event listener 
+// Import an event listener 
+import { getTheDate, getDate } from "./js/getDate"
+
 import { buttonHandler } from "./js/buttonHandler"
 
 import './styles/main.scss'
@@ -10,5 +12,6 @@ export {
     performAction, 
     buttonHandler, 
     getTripLength,
-    getTheDate
+    getTheDate,
+    getDate
 }
