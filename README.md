@@ -1,8 +1,7 @@
-Please note that the 'Extend your Project Further' that was chosen for this project is the following: Add end date and display length of trip. 
-Also please note that the weatherbit API only provides a forecast for up to 16 days in the future, so a travel date past that date will not return the weather forecast.
-
 # Travel App Project
-This Udacity project involved creating an asynchronous web app which uses multiple API's as well as user input in order to update the UI.
+This project involved creating an asynchronous web app which uses multiple API's as well as user input in order to update the UI.
+
+Please note that the weatherbit API only provides a forecast for up to 16 days in the future, so a travel date beyond 16 days date will not return the weather forecast.
 
 ### A Node environment was setup with Express
 #### Install npm 
