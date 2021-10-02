@@ -3,6 +3,10 @@ This project involved creating an asynchronous web app which uses multiple API's
 
 Please note that the weatherbit API only provides a forecast for up to 16 days in the future, so a travel date beyond 16 days date will not return the weather forecast.
 
+**To start the app, run each of the two commands below in a separate terminal:**
+npm run start 
+npm run build-dev
+
 ### A Node environment was setup with Express
 #### Install npm 
 cd into the folder and run in the command line:
@@ -89,3 +93,9 @@ Developer credentials were acquired from the three websites in order to use thei
 -  Pixabay, see this [site](https://pixabay.com/api/docs/)
 -  Weatherbit, see this [site](https://www.weatherbit.io/account/create)
  
+
+### To do later:
+Use the API foursquare to look for places of interest in the city:
+The API can be found [here](https://developer.foursquare.com/).
+
+Use the historical weather data to provide a forecast that is further than the 16 days ahead.
