@@ -1,14 +1,15 @@
 // Client side code
 import { getDate } from "./getDate"
+import { weatherAPI } from "./env"
+import { pixaAPI } from "./env"
+import { userName } from "./env"
 
 /* Global Variables */
 const geonamesURL = 'http://api.geonames.org/postalCodeSearchJSON?';
-const userName = 'sunshine_17';
 
-const weatherAPI = 'f23dc283ea084df1b925c23df3eb2779';
+
 const weatherBaseURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 
-const pixaAPI = '16361458-dcb8c58ed9a7618589e0d8461';
 const pixaBaseURL = 'https://pixabay.com/api/?';
 
 

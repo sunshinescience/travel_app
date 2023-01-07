@@ -312,7 +312,8 @@ button:focus {
         margin-top: 1em;
         width: 40vw;
         height: 35vh;
-        border: 5px solid #3b4a6b; 
+        border: 1px solid #3b4a6b; 
+        box-shadow: 5px 10px rgba(59, 74, 107, .4);
     }
     
     .holder{
@@ -322,9 +323,11 @@ button:focus {
         justify-content: center;
         padding: 1.5em;
         height: 2fr;
+        margin-top: 1em;
         margin-bottom: 1em;
         width: 40vw;
-        border: 5px solid #3b4a6b; 
+        border: 1px solid #3b4a6b; 
+        box-shadow: 5px 10px rgba(59, 74, 107, .4);
         margin-left: auto;
         margin-right: auto;
     }
